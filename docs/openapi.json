@@ -1,0 +1,3330 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Raízes do Nordeste - API",
+    "description": "Projeto Back-end. Valores monetários em centavos. Pagamento exclusivamente simulado.",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/health": {
+      "get": {
+        "tags": [
+          "Sistema"
+        ],
+        "summary": "Health",
+        "description": "Verifica se o processo e o banco respondem.",
+        "operationId": "health_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {},
+                "example": {
+                  "status": "ok"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token ausente ou inválido",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Sem permissão",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Recurso inexistente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflito de negócio ou idempotência",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Dados inválidos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Dependência indisponível",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/usuarios": {
+      "post": {
+        "tags": [
+          "Autenticação"
+        ],
+        "summary": "Cadastrar",
+        "description": "Cadastro público cria exclusivamente perfil CLIENTE.",
+        "operationId": "cadastrar_usuarios_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Cadastro"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UsuarioResposta"
+                },
+                "example": {
+                  "id": 6,
+                  "nome": "Cliente da coleção",
+                  "perfil": "CLIENTE"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token ausente ou inválido",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Sem permissão",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Recurso inexistente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflito de negócio ou idempotência",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Dados inválidos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Dependência indisponível",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "tags": [
+          "Autenticação"
+        ],
+        "summary": "Login",
+        "description": "Retorna JWT válido por TOKEN_MINUTES. Use-o em Authorize no Swagger.",
+        "operationId": "login_auth_login_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Login"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResposta"
+                },
+                "example": {
+                  "accessToken": "TOKEN_JWT_OMITIDO",
+                  "tokenType": "Bearer",
+                  "expiresIn": 3600,
+                  "user": {
+                    "id": 1,
+                    "nome": "Cliente exemplo",
+                    "perfil": "CLIENTE"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token ausente ou inválido",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Sem permissão",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Recurso inexistente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflito de negócio ou idempotência",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Dados inválidos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Dependência indisponível",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/unidades": {
+      "get": {
+        "tags": [
+          "Catálogo"
+        ],
+        "summary": "Unidades",
+        "operationId": "unidades_unidades_get",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1,
+              "title": "Page"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "default": 10,
+              "title": "Limit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {},
+                "example": {
+                  "items": [
+                    {
+                      "id": 1,
+                      "nome": "Recife Centro",
+                      "regiao": "Nordeste",
+                      "ativa": 1
+                    },
+                    {
+                      "id": 2,
+                      "nome": "Caruaru",
+                      "regiao": "Nordeste",
+                      "ativa": 1
+                    }
+                  ],
+                  "page": 1,
+                  "limit": 10,
+                  "total": 2
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token ausente ou inválido",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Sem permissão",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Recurso inexistente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflito de negócio ou idempotência",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Dados inválidos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Dependência indisponível",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Catálogo"
+        ],
+        "summary": "Criar Unidade",
+        "operationId": "criar_unidade_unidades_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UnidadeEntrada"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {},
+                "example": {
+                  "id": 3,
+                  "nome": "Unidade da coleção",
+                  "regiao": "Nordeste",
+                  "ativa": 1
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token ausente ou inválido",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Sem permissão",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Recurso inexistente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflito de negócio ou idempotência",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Dados inválidos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Dependência indisponível",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/unidades/{unidade_id}": {
+      "put": {
+        "tags": [
+          "Catálogo"
+        ],
+        "summary": "Editar Unidade",
+        "operationId": "editar_unidade_unidades__unidade_id__put",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "unidade_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Unidade Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UnidadeEntrada"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {},
+                "example": {
+                  "id": 3,
+                  "nome": "Unidade teste atualizada",
+                  "regiao": "Nordeste",
+                  "ativa": 1
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token ausente ou inválido",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Sem permissão",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Recurso inexistente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflito de negócio ou idempotência",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Dados inválidos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Dependência indisponível",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/produtos": {
+      "get": {
+        "tags": [
+          "Catálogo"
+        ],
+        "summary": "Produtos",
+        "operationId": "produtos_produtos_get",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1,
+              "title": "Page"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "default": 10,
+              "title": "Limit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {},
+                "example": {
+                  "items": [
+                    {
+                      "id": 1,
+                      "nome": "Cuscuz recheado"
+                    },
+                    {
+                      "id": 2,
+                      "nome": "Tapioca de queijo"
+                    }
+                  ],
+                  "page": 1,
+                  "limit": 10,
+                  "total": 2
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token ausente ou inválido",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Sem permissão",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Recurso inexistente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflito de negócio ou idempotência",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Dados inválidos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Dependência indisponível",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Catálogo"
+        ],
+        "summary": "Criar Produto",
+        "operationId": "criar_produto_produtos_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProdutoEntrada"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {},
+                "example": {
+                  "id": 3,
+                  "nome": "Bolo da coleção"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token ausente ou inválido",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Sem permissão",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                },
+                "example": {
+                  "error": "SEM_PERMISSAO",
+                  "message": "Perfil sem permissão para esta operação.",
+                  "details": [],
+                  "timestamp": "2026-11-09T14:21:15.698218+00:00",
+                  "path": "/produtos"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Recurso inexistente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflito de negócio ou idempotência",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Dados inválidos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Dependência indisponível",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/produtos/{produto_id}": {
+      "put": {
+        "tags": [
+          "Catálogo"
+        ],
+        "summary": "Editar Produto",
+        "operationId": "editar_produto_produtos__produto_id__put",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "produto_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Produto Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProdutoEntrada"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {},
+                "example": {
+                  "id": 3,
+                  "nome": "Bolo de macaxeira"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token ausente ou inválido",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Sem permissão",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Recurso inexistente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflito de negócio ou idempotência",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Dados inválidos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Dependência indisponível",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/unidades/{unidade_id}/cardapio": {
+      "get": {
+        "tags": [
+          "Catálogo"
+        ],
+        "summary": "Cardapio",
+        "operationId": "cardapio_unidades__unidade_id__cardapio_get",
+        "parameters": [
+          {
+            "name": "unidade_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Unidade Id"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1,
+              "title": "Page"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "default": 10,
+              "title": "Limit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {},
+                "example": {
+                  "items": [
+                    {
+                      "produtoId": 1,
+                      "nome": "Cuscuz recheado",
+                      "precoCentavos": 1200,
+                      "saldo": 100
+                    },
+                    {
+                      "produtoId": 2,
+                      "nome": "Tapioca de queijo",
+                      "precoCentavos": 1000,
+                      "saldo": 80
+                    }
+                  ],
+                  "page": 1,
+                  "limit": 10,
+                  "total": 2
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token ausente ou inválido",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Sem permissão",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Recurso inexistente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflito de negócio ou idempotência",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Dados inválidos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Dependência indisponível",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/unidades/{unidade_id}/cardapio/{produto_id}": {
+      "put": {
+        "tags": [
+          "Catálogo"
+        ],
+        "summary": "Definir Oferta",
+        "description": "Inclui ou altera preço e disponibilidade local. Estoque começa em zero.",
+        "operationId": "definir_oferta_unidades__unidade_id__cardapio__produto_id__put",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "unidade_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Unidade Id"
+            }
+          },
+          {
+            "name": "produto_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Produto Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CardapioEntrada"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {},
+                "example": {
+                  "unidadeId": 1,
+                  "produtoId": 3,
+                  "precoCentavos": 800,
+                  "disponivel": true
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token ausente ou inválido",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Sem permissão",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Recurso inexistente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflito de negócio ou idempotência",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Dados inválidos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Dependência indisponível",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/unidades/{unidade_id}/estoque": {
+      "get": {
+        "tags": [
+          "Estoque"
+        ],
+        "summary": "Estoque",
+        "operationId": "estoque_unidades__unidade_id__estoque_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "unidade_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Unidade Id"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1,
+              "title": "Page"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "default": 10,
+              "title": "Limit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {},
+                "example": {
+                  "items": [
+                    {
+                      "produtoId": 1,
+                      "saldo": 100
+                    },
+                    {
+                      "produtoId": 2,
+                      "saldo": 80
+                    },
+                    {
+                      "produtoId": 3,
+                      "saldo": 10
+                    }
+                  ],
+                  "page": 1,
+                  "limit": 10,
+                  "total": 3
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token ausente ou inválido",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Sem permissão",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                },
+                "example": {
+                  "error": "SEM_PERMISSAO",
+                  "message": "Usuário sem acesso a esta unidade.",
+                  "details": [],
+                  "timestamp": "2026-11-09T14:21:16.403365+00:00",
+                  "path": "/unidades/2/estoque"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Recurso inexistente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflito de negócio ou idempotência",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Dados inválidos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Dependência indisponível",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/unidades/{unidade_id}/estoque/{produto_id}/movimentos": {
+      "post": {
+        "tags": [
+          "Estoque"
+        ],
+        "summary": "Movimentar",
+        "description": "Quantidade positiva é entrada. Negativa é saída. Motivo obrigatório.",
+        "operationId": "movimentar_unidades__unidade_id__estoque__produto_id__movimentos_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "unidade_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Unidade Id"
+            }
+          },
+          {
+            "name": "produto_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Produto Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MovimentoEntrada"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {},
+                "example": {
+                  "unidadeId": 1,
+                  "produtoId": 3,
+                  "saldo": 10
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token ausente ou inválido",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Sem permissão",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Recurso inexistente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflito de negócio ou idempotência",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Dados inválidos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Dependência indisponível",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pedidos": {
+      "post": {
+        "tags": [
+          "Pedidos"
+        ],
+        "summary": "Criar Pedido",
+        "description": "Reserva estoque. Reenvie a mesma chave e corpo para obter o mesmo pedido.",
+        "operationId": "criar_pedido_pedidos_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 8,
+              "maxLength": 100,
+              "title": "Idempotency-Key"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PedidoEntrada"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PedidoResposta"
+                },
+                "example": {
+                  "pedidoId": 1,
+                  "clienteId": 1,
+                  "unidadeId": 1,
+                  "canalPedido": "APP",
+                  "status": "AGUARDANDO_PAGAMENTO",
+                  "subtotalCentavos": 1200,
+                  "descontoCentavos": 0,
+                  "totalCentavos": 1200,
+                  "pontosResgate": 0,
+                  "itens": [
+                    {
+                      "produtoId": 1,
+                      "quantidade": 1,
+                      "precoUnitarioCentavos": 1200
+                    }
+                  ],
+                  "criadoEm": "2026-11-09T14:21:14.258557+00:00"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token ausente ou inválido",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Sem permissão",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Recurso inexistente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                },
+                "example": {
+                  "error": "NAO_ENCONTRADO",
+                  "message": "Recurso não encontrado.",
+                  "details": [],
+                  "timestamp": "2026-11-09T14:21:16.061569+00:00",
+                  "path": "/pedidos"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflito de negócio ou idempotência",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                },
+                "example": {
+                  "error": "ESTOQUE_INSUFICIENTE",
+                  "message": "Quantidade acima do estoque disponível.",
+                  "details": [],
+                  "timestamp": "2026-11-09T14:21:16.233964+00:00",
+                  "path": "/pedidos"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Dados inválidos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                },
+                "example": {
+                  "error": "VALIDACAO",
+                  "message": "Verifique os campos enviados.",
+                  "details": [
+                    {
+                      "field": "body.canalPedido",
+                      "issue": "Field required"
+                    }
+                  ],
+                  "timestamp": "2026-11-09T14:21:15.791278+00:00",
+                  "path": "/pedidos"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Dependência indisponível",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Pedidos"
+        ],
+        "summary": "Pedidos",
+        "operationId": "pedidos_pedidos_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1,
+              "title": "Page"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "default": 10,
+              "title": "Limit"
+            }
+          },
+          {
+            "name": "canalPedido",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/Canal"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Canalpedido"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/StatusPedido"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Status"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginaPedidos"
+                },
+                "example": {
+                  "items": [
+                    {
+                      "pedidoId": 1,
+                      "clienteId": 1,
+                      "unidadeId": 1,
+                      "canalPedido": "APP",
+                      "status": "AGUARDANDO_PAGAMENTO",
+                      "subtotalCentavos": 1200,
+                      "descontoCentavos": 0,
+                      "totalCentavos": 1200,
+                      "pontosResgate": 0,
+                      "itens": [
+                        {
+                          "produtoId": 1,
+                          "quantidade": 1,
+                          "precoUnitarioCentavos": 1200
+                        }
+                      ],
+                      "criadoEm": "2026-11-09T14:21:14.258557+00:00"
+                    }
+                  ],
+                  "page": 1,
+                  "limit": 10,
+                  "total": 1
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token ausente ou inválido",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                },
+                "example": {
+                  "error": "NAO_AUTENTICADO",
+                  "message": "Informe um token Bearer.",
+                  "details": [],
+                  "timestamp": "2026-11-09T14:21:15.600250+00:00",
+                  "path": "/pedidos"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Sem permissão",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Recurso inexistente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflito de negócio ou idempotência",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Dados inválidos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Dependência indisponível",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pedidos/{pedido_id}": {
+      "get": {
+        "tags": [
+          "Pedidos"
+        ],
+        "summary": "Pedido",
+        "operationId": "pedido_pedidos__pedido_id__get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "pedido_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Pedido Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PedidoResposta"
+                },
+                "example": {
+                  "pedidoId": 1,
+                  "clienteId": 1,
+                  "unidadeId": 1,
+                  "canalPedido": "APP",
+                  "status": "AGUARDANDO_PAGAMENTO",
+                  "subtotalCentavos": 1200,
+                  "descontoCentavos": 0,
+                  "totalCentavos": 1200,
+                  "pontosResgate": 0,
+                  "itens": [
+                    {
+                      "produtoId": 1,
+                      "quantidade": 1,
+                      "precoUnitarioCentavos": 1200
+                    }
+                  ],
+                  "criadoEm": "2026-11-09T14:21:14.258557+00:00"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token ausente ou inválido",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Sem permissão",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Recurso inexistente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflito de negócio ou idempotência",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Dados inválidos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Dependência indisponível",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pedidos/{pedido_id}/status": {
+      "patch": {
+        "tags": [
+          "Pedidos"
+        ],
+        "summary": "Status Pedido",
+        "description": "Pagamento aprovado libera RECEBIDO. Depois EM_PREPARO, PRONTO e ENTREGUE.\n\nCancelamento somente enquanto AGUARDANDO_PAGAMENTO. Devolve estoque e pontos reservados.",
+        "operationId": "status_pedido_pedidos__pedido_id__status_patch",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "pedido_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Pedido Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StatusEntrada"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PedidoResposta"
+                },
+                "example": {
+                  "pedidoId": 1,
+                  "clienteId": 1,
+                  "unidadeId": 1,
+                  "canalPedido": "APP",
+                  "status": "EM_PREPARO",
+                  "subtotalCentavos": 1200,
+                  "descontoCentavos": 0,
+                  "totalCentavos": 1200,
+                  "pontosResgate": 0,
+                  "itens": [
+                    {
+                      "produtoId": 1,
+                      "quantidade": 1,
+                      "precoUnitarioCentavos": 1200
+                    }
+                  ],
+                  "criadoEm": "2026-11-09T14:21:14.258557+00:00"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token ausente ou inválido",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Sem permissão",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Recurso inexistente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflito de negócio ou idempotência",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                },
+                "example": {
+                  "error": "STATUS_INVALIDO",
+                  "message": "Transição de status não permitida.",
+                  "details": [],
+                  "timestamp": "2026-11-09T14:21:16.326606+00:00",
+                  "path": "/pedidos/1/status"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Dados inválidos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Dependência indisponível",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pedidos/{pedido_id}/pagamentos": {
+      "post": {
+        "tags": [
+          "Pagamentos"
+        ],
+        "summary": "Pagamento",
+        "description": "Simula APROVADO, RECUSADO ou TIMEOUT. Recusa mantém pedido pendente.\n\nTIMEOUT retorna 503 e persiste a tentativa. Use uma nova chave para nova tentativa.",
+        "operationId": "pagamento_pedidos__pedido_id__pagamentos_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "pedido_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Pedido Id"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 8,
+              "maxLength": 100,
+              "title": "Idempotency-Key"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PagamentoEntrada"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PagamentoResposta"
+                },
+                "example": {
+                  "pagamentoId": 1,
+                  "statusPagamento": "RECUSADO",
+                  "referencia": "mock-3be1a86720755e6f",
+                  "valorCentavos": 1200,
+                  "pedido": {
+                    "pedidoId": 1,
+                    "clienteId": 1,
+                    "unidadeId": 1,
+                    "canalPedido": "APP",
+                    "status": "AGUARDANDO_PAGAMENTO",
+                    "subtotalCentavos": 1200,
+                    "descontoCentavos": 0,
+                    "totalCentavos": 1200,
+                    "pontosResgate": 0,
+                    "itens": [
+                      {
+                        "produtoId": 1,
+                        "quantidade": 1,
+                        "precoUnitarioCentavos": 1200
+                      }
+                    ],
+                    "criadoEm": "2026-11-09T14:21:14.258557+00:00"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token ausente ou inválido",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Sem permissão",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Recurso inexistente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflito de negócio ou idempotência",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Dados inválidos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Dependência indisponível",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                },
+                "example": {
+                  "error": "PAGAMENTO_INDISPONIVEL",
+                  "message": "Tempo de resposta excedido. Consulte o pedido e tente com nova chave.",
+                  "details": [],
+                  "timestamp": "2026-11-09T14:21:14.780501+00:00",
+                  "path": "/pedidos/1/pagamentos"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/fidelidade/consentimento": {
+      "put": {
+        "tags": [
+          "Fidelidade"
+        ],
+        "summary": "Consentimento",
+        "description": "Registra aceite ou revogação da finalidade FIDELIDADE e versão do aviso.",
+        "operationId": "consentimento_fidelidade_consentimento_put",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConsentimentoEntrada"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {},
+                "example": {
+                  "finalidade": "FIDELIDADE",
+                  "aceito": true,
+                  "versao": "1.0"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token ausente ou inválido",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Sem permissão",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Recurso inexistente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflito de negócio ou idempotência",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Dados inválidos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Dependência indisponível",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/fidelidade": {
+      "get": {
+        "tags": [
+          "Fidelidade"
+        ],
+        "summary": "Fidelidade",
+        "operationId": "fidelidade_fidelidade_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1,
+              "title": "Page"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "default": 10,
+              "title": "Limit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {},
+                "example": {
+                  "saldo": 12,
+                  "consentimento": true,
+                  "historico": {
+                    "items": [
+                      {
+                        "pedidoId": 1,
+                        "tipo": "CREDITO",
+                        "quantidade": 12,
+                        "criadoEm": "2026-11-09T14:21:15.246430+00:00"
+                      }
+                    ],
+                    "page": 1,
+                    "limit": 10,
+                    "total": 1
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token ausente ou inválido",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Sem permissão",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Recurso inexistente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflito de negócio ou idempotência",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Dados inválidos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Dependência indisponível",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auditoria": {
+      "get": {
+        "tags": [
+          "Gestão"
+        ],
+        "summary": "Auditoria",
+        "operationId": "auditoria_auditoria_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1,
+              "title": "Page"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "default": 10,
+              "title": "Limit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {},
+                "example": {
+                  "items": [
+                    {
+                      "id": 22,
+                      "usuario_id": 2,
+                      "acao": "CONSULTAR_AUDITORIA",
+                      "recurso": "auditoria",
+                      "criado_em": "2026-11-09T14:21:15.433424+00:00"
+                    },
+                    {
+                      "id": 21,
+                      "usuario_id": 1,
+                      "acao": "CONSULTAR_FIDELIDADE",
+                      "recurso": "1",
+                      "criado_em": "2026-11-09T14:21:15.339024+00:00"
+                    },
+                    {
+                      "id": 20,
+                      "usuario_id": 4,
+                      "acao": "STATUS_ENTREGUE",
+                      "recurso": "1",
+                      "criado_em": "2026-11-09T14:21:15.246482+00:00"
+                    },
+                    {
+                      "id": 19,
+                      "usuario_id": 3,
+                      "acao": "STATUS_PRONTO",
+                      "recurso": "1",
+                      "criado_em": "2026-11-09T14:21:15.152478+00:00"
+                    },
+                    {
+                      "id": 18,
+                      "usuario_id": 3,
+                      "acao": "STATUS_EM_PREPARO",
+                      "recurso": "1",
+                      "criado_em": "2026-11-09T14:21:15.057403+00:00"
+                    },
+                    {
+                      "id": 17,
+                      "usuario_id": 1,
+                      "acao": "PAGAMENTO_APROVADO",
+                      "recurso": "1",
+                      "criado_em": "2026-11-09T14:21:14.870348+00:00"
+                    },
+                    {
+                      "id": 16,
+                      "usuario_id": 1,
+                      "acao": "PAGAMENTO_TIMEOUT",
+                      "recurso": "1",
+                      "criado_em": "2026-11-09T14:21:14.777156+00:00"
+                    },
+                    {
+                      "id": 15,
+                      "usuario_id": 1,
+                      "acao": "PAGAMENTO_RECUSADO",
+                      "recurso": "1",
+                      "criado_em": "2026-11-09T14:21:14.635847+00:00"
+                    },
+                    {
+                      "id": 14,
+                      "usuario_id": 1,
+                      "acao": "CRIAR_PEDIDO",
+                      "recurso": "1",
+                      "criado_em": "2026-11-09T14:21:14.258883+00:00"
+                    },
+                    {
+                      "id": 13,
+                      "usuario_id": 1,
+                      "acao": "MOVIMENTAR_ESTOQUE",
+                      "recurso": "1/1",
+                      "criado_em": "2026-11-09T14:21:14.258861+00:00"
+                    },
+                    {
+                      "id": 12,
+                      "usuario_id": 1,
+                      "acao": "CONSENTIMENTO_FIDELIDADE",
+                      "recurso": "1",
+                      "criado_em": "2026-11-09T14:21:14.179216+00:00"
+                    },
+                    {
+                      "id": 11,
+                      "usuario_id": 4,
+                      "acao": "MOVIMENTAR_ESTOQUE",
+                      "recurso": "1/3",
+                      "criado_em": "2026-11-09T14:21:13.991704+00:00"
+                    },
+                    {
+                      "id": 10,
+                      "usuario_id": 2,
+                      "acao": "ALTERAR_CARDAPIO",
+                      "recurso": "1/3",
+                      "criado_em": "2026-11-09T14:21:13.899507+00:00"
+                    },
+                    {
+                      "id": 9,
+                      "usuario_id": 2,
+                      "acao": "EDITAR_PRODUTO",
+                      "recurso": "3",
+                      "criado_em": "2026-11-09T14:21:13.805686+00:00"
+                    },
+                    {
+                      "id": 8,
+                      "usuario_id": 2,
+                      "acao": "CRIAR_PRODUTO",
+                      "recurso": "3",
+                      "criado_em": "2026-11-09T14:21:13.710445+00:00"
+                    },
+                    {
+                      "id": 7,
+                      "usuario_id": 2,
+                      "acao": "EDITAR_UNIDADE",
+                      "recurso": "3",
+                      "criado_em": "2026-11-09T14:21:13.617467+00:00"
+                    },
+                    {
+                      "id": 6,
+                      "usuario_id": 2,
+                      "acao": "CRIAR_UNIDADE",
+                      "recurso": "3",
+                      "criado_em": "2026-11-09T14:21:13.507555+00:00"
+                    },
+                    {
+                      "id": 5,
+                      "usuario_id": 6,
+                      "acao": "CADASTRAR_USUARIO",
+                      "recurso": "6",
+                      "criado_em": "2026-11-09T14:21:13.138896+00:00"
+                    },
+                    {
+                      "id": 4,
+                      "usuario_id": 4,
+                      "acao": "LOGIN",
+                      "recurso": "4",
+                      "criado_em": "2026-11-09T14:21:12.981232+00:00"
+                    },
+                    {
+                      "id": 3,
+                      "usuario_id": 3,
+                      "acao": "LOGIN",
+                      "recurso": "3",
+                      "criado_em": "2026-11-09T14:21:12.807801+00:00"
+                    },
+                    {
+                      "id": 2,
+                      "usuario_id": 2,
+                      "acao": "LOGIN",
+                      "recurso": "2",
+                      "criado_em": "2026-11-09T14:21:12.637414+00:00"
+                    },
+                    {
+                      "id": 1,
+                      "usuario_id": 1,
+                      "acao": "LOGIN",
+                      "recurso": "1",
+                      "criado_em": "2026-11-09T14:21:12.461215+00:00"
+                    }
+                  ],
+                  "page": 1,
+                  "limit": 100,
+                  "total": 22
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token ausente ou inválido",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Sem permissão",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Recurso inexistente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflito de negócio ou idempotência",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Dados inválidos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Dependência indisponível",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/relatorios/vendas": {
+      "get": {
+        "tags": [
+          "Gestão"
+        ],
+        "summary": "Vendas",
+        "description": "Receita de pedidos entregues agrupada por unidade, região e canal.",
+        "operationId": "vendas_relatorios_vendas_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {},
+                "example": {
+                  "items": [
+                    {
+                      "unidadeId": 1,
+                      "regiao": "Nordeste",
+                      "canalPedido": "APP",
+                      "pedidos": 1,
+                      "receitaCentavos": 1200
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token ausente ou inválido",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Sem permissão",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Recurso inexistente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflito de negócio ou idempotência",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Dados inválidos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Dependência indisponível",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResposta"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Cadastro": {
+        "properties": {
+          "email": {
+            "type": "string",
+            "maxLength": 150,
+            "minLength": 5,
+            "title": "Email",
+            "examples": [
+              "cliente@raizes.local"
+            ]
+          },
+          "senha": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 8,
+            "title": "Senha",
+            "examples": [
+              "Cliente@123"
+            ]
+          },
+          "nome": {
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 2,
+            "title": "Nome",
+            "examples": [
+              "Maria"
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "email",
+          "senha",
+          "nome"
+        ],
+        "title": "Cadastro"
+      },
+      "Canal": {
+        "type": "string",
+        "enum": [
+          "APP",
+          "TOTEM",
+          "BALCAO",
+          "PICKUP",
+          "WEB"
+        ],
+        "title": "Canal"
+      },
+      "CardapioEntrada": {
+        "properties": {
+          "precoCentavos": {
+            "type": "integer",
+            "maximum": 1000000.0,
+            "exclusiveMinimum": 0.0,
+            "title": "Precocentavos"
+          },
+          "disponivel": {
+            "type": "boolean",
+            "title": "Disponivel",
+            "default": true
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "precoCentavos"
+        ],
+        "title": "CardapioEntrada"
+      },
+      "ConsentimentoEntrada": {
+        "properties": {
+          "aceito": {
+            "type": "boolean",
+            "title": "Aceito"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "aceito"
+        ],
+        "title": "ConsentimentoEntrada"
+      },
+      "ErroResposta": {
+        "properties": {
+          "error": {
+            "type": "string",
+            "title": "Error"
+          },
+          "message": {
+            "type": "string",
+            "title": "Message"
+          },
+          "details": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array",
+            "title": "Details",
+            "default": []
+          },
+          "timestamp": {
+            "type": "string",
+            "title": "Timestamp"
+          },
+          "path": {
+            "type": "string",
+            "title": "Path"
+          }
+        },
+        "type": "object",
+        "required": [
+          "error",
+          "message",
+          "timestamp",
+          "path"
+        ],
+        "title": "ErroResposta"
+      },
+      "ItemEntrada": {
+        "properties": {
+          "produtoId": {
+            "type": "integer",
+            "exclusiveMinimum": 0.0,
+            "title": "Produtoid"
+          },
+          "quantidade": {
+            "type": "integer",
+            "maximum": 100.0,
+            "exclusiveMinimum": 0.0,
+            "title": "Quantidade"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "produtoId",
+          "quantidade"
+        ],
+        "title": "ItemEntrada"
+      },
+      "ItemResposta": {
+        "properties": {
+          "produtoId": {
+            "type": "integer",
+            "title": "Produtoid"
+          },
+          "quantidade": {
+            "type": "integer",
+            "title": "Quantidade"
+          },
+          "precoUnitarioCentavos": {
+            "type": "integer",
+            "title": "Precounitariocentavos"
+          }
+        },
+        "type": "object",
+        "required": [
+          "produtoId",
+          "quantidade",
+          "precoUnitarioCentavos"
+        ],
+        "title": "ItemResposta"
+      },
+      "Login": {
+        "properties": {
+          "email": {
+            "type": "string",
+            "maxLength": 150,
+            "minLength": 5,
+            "title": "Email",
+            "examples": [
+              "cliente@raizes.local"
+            ]
+          },
+          "senha": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 8,
+            "title": "Senha",
+            "examples": [
+              "Cliente@123"
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "email",
+          "senha"
+        ],
+        "title": "Login"
+      },
+      "LoginResposta": {
+        "properties": {
+          "accessToken": {
+            "type": "string",
+            "title": "Accesstoken"
+          },
+          "tokenType": {
+            "type": "string",
+            "title": "Tokentype"
+          },
+          "expiresIn": {
+            "type": "integer",
+            "title": "Expiresin"
+          },
+          "user": {
+            "$ref": "#/components/schemas/UsuarioResposta"
+          }
+        },
+        "type": "object",
+        "required": [
+          "accessToken",
+          "tokenType",
+          "expiresIn",
+          "user"
+        ],
+        "title": "LoginResposta"
+      },
+      "MovimentoEntrada": {
+        "properties": {
+          "quantidade": {
+            "type": "integer",
+            "maximum": 100000.0,
+            "minimum": -100000.0,
+            "title": "Quantidade"
+          },
+          "motivo": {
+            "type": "string",
+            "maxLength": 200,
+            "minLength": 5,
+            "title": "Motivo"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "quantidade",
+          "motivo"
+        ],
+        "title": "MovimentoEntrada"
+      },
+      "PagamentoEntrada": {
+        "properties": {
+          "resultado": {
+            "type": "string",
+            "pattern": "^(APROVADO|RECUSADO|TIMEOUT)$",
+            "title": "Resultado",
+            "examples": [
+              "APROVADO"
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "resultado"
+        ],
+        "title": "PagamentoEntrada"
+      },
+      "PagamentoResposta": {
+        "properties": {
+          "pagamentoId": {
+            "type": "integer",
+            "title": "Pagamentoid"
+          },
+          "statusPagamento": {
+            "type": "string",
+            "title": "Statuspagamento"
+          },
+          "referencia": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Referencia"
+          },
+          "valorCentavos": {
+            "type": "integer",
+            "title": "Valorcentavos"
+          },
+          "pedido": {
+            "$ref": "#/components/schemas/PedidoResposta"
+          }
+        },
+        "type": "object",
+        "required": [
+          "pagamentoId",
+          "statusPagamento",
+          "referencia",
+          "valorCentavos",
+          "pedido"
+        ],
+        "title": "PagamentoResposta"
+      },
+      "PaginaPedidos": {
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/PedidoResposta"
+            },
+            "type": "array",
+            "title": "Items"
+          },
+          "page": {
+            "type": "integer",
+            "title": "Page"
+          },
+          "limit": {
+            "type": "integer",
+            "title": "Limit"
+          },
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          }
+        },
+        "type": "object",
+        "required": [
+          "items",
+          "page",
+          "limit",
+          "total"
+        ],
+        "title": "PaginaPedidos"
+      },
+      "PedidoEntrada": {
+        "properties": {
+          "unidadeId": {
+            "type": "integer",
+            "exclusiveMinimum": 0.0,
+            "title": "Unidadeid"
+          },
+          "canalPedido": {
+            "$ref": "#/components/schemas/Canal"
+          },
+          "itens": {
+            "items": {
+              "$ref": "#/components/schemas/ItemEntrada"
+            },
+            "type": "array",
+            "maxItems": 30,
+            "minItems": 1,
+            "title": "Itens"
+          },
+          "pontosResgate": {
+            "type": "integer",
+            "maximum": 100000.0,
+            "minimum": 0.0,
+            "title": "Pontosresgate",
+            "default": 0
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "unidadeId",
+          "canalPedido",
+          "itens"
+        ],
+        "title": "PedidoEntrada"
+      },
+      "PedidoResposta": {
+        "properties": {
+          "pedidoId": {
+            "type": "integer",
+            "title": "Pedidoid"
+          },
+          "clienteId": {
+            "type": "integer",
+            "title": "Clienteid"
+          },
+          "unidadeId": {
+            "type": "integer",
+            "title": "Unidadeid"
+          },
+          "canalPedido": {
+            "$ref": "#/components/schemas/Canal"
+          },
+          "status": {
+            "$ref": "#/components/schemas/StatusPedido"
+          },
+          "subtotalCentavos": {
+            "type": "integer",
+            "title": "Subtotalcentavos"
+          },
+          "descontoCentavos": {
+            "type": "integer",
+            "title": "Descontocentavos"
+          },
+          "totalCentavos": {
+            "type": "integer",
+            "title": "Totalcentavos"
+          },
+          "pontosResgate": {
+            "type": "integer",
+            "title": "Pontosresgate"
+          },
+          "itens": {
+            "items": {
+              "$ref": "#/components/schemas/ItemResposta"
+            },
+            "type": "array",
+            "title": "Itens"
+          },
+          "criadoEm": {
+            "type": "string",
+            "title": "Criadoem"
+          }
+        },
+        "type": "object",
+        "required": [
+          "pedidoId",
+          "clienteId",
+          "unidadeId",
+          "canalPedido",
+          "status",
+          "subtotalCentavos",
+          "descontoCentavos",
+          "totalCentavos",
+          "pontosResgate",
+          "itens",
+          "criadoEm"
+        ],
+        "title": "PedidoResposta"
+      },
+      "ProdutoEntrada": {
+        "properties": {
+          "nome": {
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 2,
+            "title": "Nome"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "nome"
+        ],
+        "title": "ProdutoEntrada"
+      },
+      "StatusEntrada": {
+        "properties": {
+          "status": {
+            "$ref": "#/components/schemas/StatusPedido"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "status"
+        ],
+        "title": "StatusEntrada"
+      },
+      "StatusPedido": {
+        "type": "string",
+        "enum": [
+          "AGUARDANDO_PAGAMENTO",
+          "RECEBIDO",
+          "EM_PREPARO",
+          "PRONTO",
+          "ENTREGUE",
+          "CANCELADO"
+        ],
+        "title": "StatusPedido"
+      },
+      "UnidadeEntrada": {
+        "properties": {
+          "nome": {
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 2,
+            "title": "Nome"
+          },
+          "regiao": {
+            "type": "string",
+            "maxLength": 50,
+            "minLength": 2,
+            "title": "Regiao"
+          },
+          "ativa": {
+            "type": "boolean",
+            "title": "Ativa",
+            "default": true
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "nome",
+          "regiao"
+        ],
+        "title": "UnidadeEntrada"
+      },
+      "UsuarioResposta": {
+        "properties": {
+          "id": {
+            "type": "integer",
+            "title": "Id"
+          },
+          "nome": {
+            "type": "string",
+            "title": "Nome"
+          },
+          "perfil": {
+            "type": "string",
+            "title": "Perfil"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "nome",
+          "perfil"
+        ],
+        "title": "UsuarioResposta"
+      }
+    },
+    "securitySchemes": {
+      "HTTPBearer": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}

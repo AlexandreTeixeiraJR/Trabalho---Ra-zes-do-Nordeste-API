@@ -1,0 +1,32 @@
+digraph DER {
+ graph [rankdir=LR, bgcolor="white", pad="0.5", nodesep="0.45", ranksep="1.1", label="Modelo relacional implementado - SQLite", labelloc=t, fontsize=24, fontname="Arial"];
+ node [shape=record, fontname="Arial", fontsize=12, style=filled, fillcolor="#f3f6f8", color="#345369", margin="0.14"];
+ edge [fontname="Arial", fontsize=10, color="#667681", arrowsize=0.7];
+ unidades [label="{unidades|PK id\lnome\lregiao\lativa\l}"];
+ usuarios [label="{usuarios|PK id\lFK unidade_id (opcional)\lnome / email UNIQUE\lsenha_hash / perfil\l}"];
+ produtos [label="{produtos|PK id\lnome\l}"];
+ cardapio [label="{cardapio|PK,FK unidade_id\lPK,FK produto_id\lpreco_centavos\ldisponivel / saldo\l}"];
+ pedidos [label="{pedidos|PK id\lFK usuario_id / unidade_id\lcanal / status\lsubtotal_centavos\ldesconto_centavos / total_centavos\lpontos_resgate\lchave / corpo_hash / criado_em\lUNIQUE usuario_id + chave\l}"];
+ itens [label="{itens_pedido|PK,FK pedido_id\lPK,FK produto_id\lquantidade / preco_centavos\l}"];
+ movimentos [label="{movimentos_estoque|PK id\lFK unidade_id + produto_id\lFK pedido_id (opcional)\lFK usuario_id\lquantidade / motivo / criado_em\l}"];
+ pagamentos [label="{pagamentos|PK id / FK pedido_id\lchave / resultado_solicitado\lstatus / referencia\lvalor_centavos / criado_em\lUNIQUE pedido_id + chave\l}"];
+ consentimentos [label="{consentimentos|PK id / FK usuario_id\lfinalidade / aceito\lversao / criado_em\l}"];
+ pontos [label="{pontos|PK id / FK usuario_id\lFK pedido_id\ltipo / quantidade / criado_em\lUNIQUE pedido_id + tipo\l}"];
+ auditoria [label="{auditoria|PK id / FK usuario_id\lacao / recurso / criado_em\l}"];
+ migrations [label="{migrations|PK nome\l}"];
+ unidades -> usuarios [label="0..1 : 0..N"];
+ unidades -> cardapio [label="1 : 0..N"];
+ produtos -> cardapio [label="1 : 0..N"];
+ usuarios -> pedidos [label="1 : 0..N"];
+ unidades -> pedidos [label="1 : 0..N"];
+ pedidos -> itens [label="1 : 1..N"];
+ produtos -> itens [label="1 : 0..N"];
+ cardapio -> movimentos [label="1 : 0..N"];
+ usuarios -> movimentos [label="1 : 0..N"];
+ pedidos -> movimentos [label="0..1 : 0..N"];
+ pedidos -> pagamentos [label="1 : 0..N"];
+ usuarios -> consentimentos [label="1 : 0..N"];
+ usuarios -> pontos [label="1 : 0..N"];
+ pedidos -> pontos [label="1 : 0..N"];
+ usuarios -> auditoria [label="1 : 0..N"];
+}

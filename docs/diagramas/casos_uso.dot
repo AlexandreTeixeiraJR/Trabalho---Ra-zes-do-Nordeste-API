@@ -1,0 +1,31 @@
+graph Casos {
+ graph [rankdir=LR,bgcolor=white,pad="0.5",nodesep="0.5",fontname="Arial",label="Casos de uso - Raízes do Nordeste",labelloc=t,fontsize=24];
+ node [fontname="Arial",fontsize=13];
+ cliente [shape=box,label="Cliente\nApp / Web / Totem / Pickup"];
+ atendente [shape=box,label="Atendente\nBalcão"];
+ cozinha [shape=box,label="Cozinha"];
+ gestor [shape=box,label="Gerente / Administrador"];
+ gateway [shape=box,label="Gateway de pagamento\nrepresentado por GatewayMock"];
+ subgraph cluster_sistema {
+  label="API Raízes do Nordeste"; color="#839aa9";
+  node [shape=ellipse,style=filled,fillcolor="#f0f5f7"];
+  login [label="Cadastrar / Autenticar"];
+  consultar [label="Consultar cardápio local"];
+  pedir [label="Realizar pedido por canal"];
+  pagar [label="Solicitar pagamento mock"];
+  cancelar [label="Consultar / Cancelar pendente"];
+  preparar [label="Iniciar preparo / Marcar pronto"];
+  entregar [label="Confirmar entrega"];
+  fidelizar [label="Consentir / Revogar / Consultar pontos"];
+  estoque [label="Ajustar estoque / Oferta local"];
+  administrar [label="Gerir unidades e produtos"];
+  auditar [label="Consultar auditoria e vendas"];
+ }
+ cliente -- login; cliente -- consultar; cliente -- pedir; cliente -- pagar;
+ cliente -- cancelar; cliente -- fidelizar;
+ atendente -- pedir; atendente -- pagar; atendente -- entregar;
+ cozinha -- preparar;
+ gestor -- estoque; gestor -- entregar; gestor -- administrar [label="ADMIN"];
+ gestor -- auditar [label="auditoria ADMIN"];
+ gateway -- pagar;
+}

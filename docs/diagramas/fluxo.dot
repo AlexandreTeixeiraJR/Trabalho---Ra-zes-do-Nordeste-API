@@ -1,0 +1,28 @@
+digraph Fluxo {
+ graph [rankdir=TB,bgcolor=white,pad="0.5",fontname="Arial",label="Atividade do fluxo crítico",labelloc=t,fontsize=24];
+ node [shape=box,style="rounded,filled",fillcolor="#f0f5f7",fontname="Arial",fontsize=13];
+ inicio [shape=ellipse,label="Cliente autenticado"];
+ validacao [label="Validar unidade, canal, itens e chave"];
+ replay [shape=diamond,label="Chave já existe?"];
+ retorno [label="Mesmo corpo: devolver pedido\nCorpo diferente: 409"];
+ reservar [label="BEGIN IMMEDIATE\nValidar saldo, reservar estoque\nCriar pedido + itens + auditoria\nCOMMIT"];
+ pagar [label="Solicitar pagamento via GatewayMock"];
+ resultado [shape=diamond,label="Resultado"];
+ timeout [label="TIMEOUT: registrar tentativa, retornar 503\nPedido permanece pendente"];
+ recusa [label="RECUSADO: registrar tentativa\nPedido permanece pendente"];
+ aprovado [label="APROVADO: registrar pagamento\nPedido passa a RECEBIDO"];
+ preparo [label="Cozinha: EM_PREPARO -> PRONTO"];
+ entrega [label="Operação: ENTREGUE\nCreditar pontos se houver consentimento"];
+ cancelar [label="Cancelar pendente\nDevolver estoque e pontos reservados"];
+ inicio -> validacao -> replay;
+ replay -> retorno [label="sim"];
+ replay -> reservar [label="não"];
+ reservar -> pagar; reservar -> cancelar [label="desistência"];
+ pagar -> resultado;
+ resultado -> timeout [label="indisponível"];
+ resultado -> recusa [label="negado"];
+ resultado -> aprovado [label="confirmado"];
+ timeout -> pagar [style=dashed,label="nova chave"];
+ recusa -> pagar [style=dashed,label="nova chave"];
+ aprovado -> preparo -> entrega;
+}

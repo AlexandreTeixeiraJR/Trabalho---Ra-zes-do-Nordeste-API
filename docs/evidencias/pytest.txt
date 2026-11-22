@@ -1,0 +1,27 @@
+.................                                                        [100%]
+============================== warnings summary ===============================
+.venv\Lib\site-packages\fastapi\testclient.py:1
+  C:\Users\ALEXANDRE\Desktop\TCC\.venv\Lib\site-packages\fastapi\testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=================================== PASSES ====================================
+=========================== short test summary info ===========================
+PASSED tests/test_api.py::test_idempotencia_e_conflito
+PASSED tests/test_api.py::test_reserva_concorrente
+PASSED tests/test_api.py::test_atomicidade_itens
+PASSED tests/test_api.py::test_cancelamento_devolve_uma_vez
+PASSED tests/test_api.py::test_timeout_persistido_e_retentativa
+PASSED tests/test_api.py::test_isolamento_cliente_e_unidade
+PASSED tests/test_api.py::test_validacoes[alteracao0]
+PASSED tests/test_api.py::test_validacoes[alteracao1]
+PASSED tests/test_api.py::test_validacoes[alteracao2]
+PASSED tests/test_api.py::test_validacoes[alteracao3]
+PASSED tests/test_api.py::test_validacoes[alteracao4]
+PASSED tests/test_api.py::test_validacoes[alteracao5]
+PASSED tests/test_api.py::test_fidelidade_resgate_estorno_revogacao
+PASSED tests/test_api.py::test_reiniciar_preserva_dados
+PASSED tests/test_api.py::test_seed_repetivel
+PASSED tests/test_api.py::test_credenciais_e_auditoria
+PASSED tests/test_api.py::test_movimento_zero_e_contrato
+17 passed, 1 warning in 10.59s

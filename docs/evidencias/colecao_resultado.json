@@ -1,0 +1,1056 @@
+{
+  "ferramenta": "Newman",
+  "inicio": 1794234072308,
+  "requisicoes": 44,
+  "assercoes": 56,
+  "falhas": 0,
+  "execucoes": [
+    {
+      "cenario": "T01 - Login Cliente",
+      "metodo": "POST",
+      "rota": "/auth/login",
+      "status": 200,
+      "assercoes": 2,
+      "falhas": [],
+      "resposta": {
+        "accessToken": "TOKEN_JWT_OMITIDO",
+        "tokenType": "Bearer",
+        "expiresIn": 3600,
+        "user": {
+          "id": 1,
+          "nome": "Cliente exemplo",
+          "perfil": "CLIENTE"
+        }
+      }
+    },
+    {
+      "cenario": "T02 - Login Admin",
+      "metodo": "POST",
+      "rota": "/auth/login",
+      "status": 200,
+      "assercoes": 2,
+      "falhas": [],
+      "resposta": {
+        "accessToken": "TOKEN_JWT_OMITIDO",
+        "tokenType": "Bearer",
+        "expiresIn": 3600,
+        "user": {
+          "id": 2,
+          "nome": "Administrador exemplo",
+          "perfil": "ADMIN"
+        }
+      }
+    },
+    {
+      "cenario": "T03 - Login Cozinha",
+      "metodo": "POST",
+      "rota": "/auth/login",
+      "status": 200,
+      "assercoes": 2,
+      "falhas": [],
+      "resposta": {
+        "accessToken": "TOKEN_JWT_OMITIDO",
+        "tokenType": "Bearer",
+        "expiresIn": 3600,
+        "user": {
+          "id": 3,
+          "nome": "Cozinha Recife",
+          "perfil": "COZINHA"
+        }
+      }
+    },
+    {
+      "cenario": "T04 - Login Gerente",
+      "metodo": "POST",
+      "rota": "/auth/login",
+      "status": 200,
+      "assercoes": 2,
+      "falhas": [],
+      "resposta": {
+        "accessToken": "TOKEN_JWT_OMITIDO",
+        "tokenType": "Bearer",
+        "expiresIn": 3600,
+        "user": {
+          "id": 4,
+          "nome": "Gerente Recife",
+          "perfil": "GERENTE"
+        }
+      }
+    },
+    {
+      "cenario": "T05 - Cadastro público",
+      "metodo": "POST",
+      "rota": "/usuarios",
+      "status": 201,
+      "assercoes": 1,
+      "falhas": [],
+      "resposta": {
+        "id": 6,
+        "nome": "Cliente da coleção",
+        "perfil": "CLIENTE"
+      }
+    },
+    {
+      "cenario": "T06 - Consultar unidades",
+      "metodo": "GET",
+      "rota": "/unidades",
+      "status": 200,
+      "assercoes": 1,
+      "falhas": [],
+      "resposta": {
+        "items": [
+          {
+            "id": 1,
+            "nome": "Recife Centro",
+            "regiao": "Nordeste",
+            "ativa": 1
+          },
+          {
+            "id": 2,
+            "nome": "Caruaru",
+            "regiao": "Nordeste",
+            "ativa": 1
+          }
+        ],
+        "page": 1,
+        "limit": 10,
+        "total": 2
+      }
+    },
+    {
+      "cenario": "T07 - Consultar produtos",
+      "metodo": "GET",
+      "rota": "/produtos",
+      "status": 200,
+      "assercoes": 1,
+      "falhas": [],
+      "resposta": {
+        "items": [
+          {
+            "id": 1,
+            "nome": "Cuscuz recheado"
+          },
+          {
+            "id": 2,
+            "nome": "Tapioca de queijo"
+          }
+        ],
+        "page": 1,
+        "limit": 10,
+        "total": 2
+      }
+    },
+    {
+      "cenario": "T08 - Consultar cardápio local",
+      "metodo": "GET",
+      "rota": "/unidades/1/cardapio",
+      "status": 200,
+      "assercoes": 1,
+      "falhas": [],
+      "resposta": {
+        "items": [
+          {
+            "produtoId": 1,
+            "nome": "Cuscuz recheado",
+            "precoCentavos": 1200,
+            "saldo": 100
+          },
+          {
+            "produtoId": 2,
+            "nome": "Tapioca de queijo",
+            "precoCentavos": 1000,
+            "saldo": 80
+          }
+        ],
+        "page": 1,
+        "limit": 10,
+        "total": 2
+      }
+    },
+    {
+      "cenario": "T09 - Cadastrar unidade",
+      "metodo": "POST",
+      "rota": "/unidades",
+      "status": 201,
+      "assercoes": 1,
+      "falhas": [],
+      "resposta": {
+        "id": 3,
+        "nome": "Unidade da coleção",
+        "regiao": "Nordeste",
+        "ativa": 1
+      }
+    },
+    {
+      "cenario": "T10 - Editar unidade",
+      "metodo": "PUT",
+      "rota": "/unidades/3",
+      "status": 200,
+      "assercoes": 1,
+      "falhas": [],
+      "resposta": {
+        "id": 3,
+        "nome": "Unidade teste atualizada",
+        "regiao": "Nordeste",
+        "ativa": 1
+      }
+    },
+    {
+      "cenario": "T11 - Cadastrar produto",
+      "metodo": "POST",
+      "rota": "/produtos",
+      "status": 201,
+      "assercoes": 1,
+      "falhas": [],
+      "resposta": {
+        "id": 3,
+        "nome": "Bolo da coleção"
+      }
+    },
+    {
+      "cenario": "T12 - Editar produto",
+      "metodo": "PUT",
+      "rota": "/produtos/3",
+      "status": 200,
+      "assercoes": 1,
+      "falhas": [],
+      "resposta": {
+        "id": 3,
+        "nome": "Bolo de macaxeira"
+      }
+    },
+    {
+      "cenario": "T13 - Definir preço local",
+      "metodo": "PUT",
+      "rota": "/unidades/1/cardapio/3",
+      "status": 200,
+      "assercoes": 1,
+      "falhas": [],
+      "resposta": {
+        "unidadeId": 1,
+        "produtoId": 3,
+        "precoCentavos": 800,
+        "disponivel": true
+      }
+    },
+    {
+      "cenario": "T14 - Entrada com motivo",
+      "metodo": "POST",
+      "rota": "/unidades/1/estoque/3/movimentos",
+      "status": 201,
+      "assercoes": 1,
+      "falhas": [],
+      "resposta": {
+        "unidadeId": 1,
+        "produtoId": 3,
+        "saldo": 10
+      }
+    },
+    {
+      "cenario": "T15 - Consultar saldo",
+      "metodo": "GET",
+      "rota": "/unidades/1/estoque",
+      "status": 200,
+      "assercoes": 1,
+      "falhas": [],
+      "resposta": {
+        "items": [
+          {
+            "produtoId": 1,
+            "saldo": 100
+          },
+          {
+            "produtoId": 2,
+            "saldo": 80
+          },
+          {
+            "produtoId": 3,
+            "saldo": 10
+          }
+        ],
+        "page": 1,
+        "limit": 10,
+        "total": 3
+      }
+    },
+    {
+      "cenario": "T16 - Aceitar fidelidade",
+      "metodo": "PUT",
+      "rota": "/fidelidade/consentimento",
+      "status": 200,
+      "assercoes": 1,
+      "falhas": [],
+      "resposta": {
+        "finalidade": "FIDELIDADE",
+        "aceito": true,
+        "versao": "1.0"
+      }
+    },
+    {
+      "cenario": "T17 - Criar pedido APP",
+      "metodo": "POST",
+      "rota": "/pedidos",
+      "status": 201,
+      "assercoes": 2,
+      "falhas": [],
+      "resposta": {
+        "pedidoId": 1,
+        "clienteId": 1,
+        "unidadeId": 1,
+        "canalPedido": "APP",
+        "status": "AGUARDANDO_PAGAMENTO",
+        "subtotalCentavos": 1200,
+        "descontoCentavos": 0,
+        "totalCentavos": 1200,
+        "pontosResgate": 0,
+        "itens": [
+          {
+            "produtoId": 1,
+            "quantidade": 1,
+            "precoUnitarioCentavos": 1200
+          }
+        ],
+        "criadoEm": "2026-11-09T14:21:14.258557+00:00"
+      }
+    },
+    {
+      "cenario": "T18 - Repetir criação idempotente",
+      "metodo": "POST",
+      "rota": "/pedidos",
+      "status": 201,
+      "assercoes": 2,
+      "falhas": [],
+      "resposta": {
+        "pedidoId": 1,
+        "clienteId": 1,
+        "unidadeId": 1,
+        "canalPedido": "APP",
+        "status": "AGUARDANDO_PAGAMENTO",
+        "subtotalCentavos": 1200,
+        "descontoCentavos": 0,
+        "totalCentavos": 1200,
+        "pontosResgate": 0,
+        "itens": [
+          {
+            "produtoId": 1,
+            "quantidade": 1,
+            "precoUnitarioCentavos": 1200
+          }
+        ],
+        "criadoEm": "2026-11-09T14:21:14.258557+00:00"
+      }
+    },
+    {
+      "cenario": "T19 - Consultar pedido",
+      "metodo": "GET",
+      "rota": "/pedidos/1",
+      "status": 200,
+      "assercoes": 1,
+      "falhas": [],
+      "resposta": {
+        "pedidoId": 1,
+        "clienteId": 1,
+        "unidadeId": 1,
+        "canalPedido": "APP",
+        "status": "AGUARDANDO_PAGAMENTO",
+        "subtotalCentavos": 1200,
+        "descontoCentavos": 0,
+        "totalCentavos": 1200,
+        "pontosResgate": 0,
+        "itens": [
+          {
+            "produtoId": 1,
+            "quantidade": 1,
+            "precoUnitarioCentavos": 1200
+          }
+        ],
+        "criadoEm": "2026-11-09T14:21:14.258557+00:00"
+      }
+    },
+    {
+      "cenario": "T20 - Filtrar por canal",
+      "metodo": "GET",
+      "rota": "/pedidos",
+      "status": 200,
+      "assercoes": 2,
+      "falhas": [],
+      "resposta": {
+        "items": [
+          {
+            "pedidoId": 1,
+            "clienteId": 1,
+            "unidadeId": 1,
+            "canalPedido": "APP",
+            "status": "AGUARDANDO_PAGAMENTO",
+            "subtotalCentavos": 1200,
+            "descontoCentavos": 0,
+            "totalCentavos": 1200,
+            "pontosResgate": 0,
+            "itens": [
+              {
+                "produtoId": 1,
+                "quantidade": 1,
+                "precoUnitarioCentavos": 1200
+              }
+            ],
+            "criadoEm": "2026-11-09T14:21:14.258557+00:00"
+          }
+        ],
+        "page": 1,
+        "limit": 10,
+        "total": 1
+      }
+    },
+    {
+      "cenario": "T21 - Recusar pagamento",
+      "metodo": "POST",
+      "rota": "/pedidos/1/pagamentos",
+      "status": 200,
+      "assercoes": 2,
+      "falhas": [],
+      "resposta": {
+        "pagamentoId": 1,
+        "statusPagamento": "RECUSADO",
+        "referencia": "mock-3be1a86720755e6f",
+        "valorCentavos": 1200,
+        "pedido": {
+          "pedidoId": 1,
+          "clienteId": 1,
+          "unidadeId": 1,
+          "canalPedido": "APP",
+          "status": "AGUARDANDO_PAGAMENTO",
+          "subtotalCentavos": 1200,
+          "descontoCentavos": 0,
+          "totalCentavos": 1200,
+          "pontosResgate": 0,
+          "itens": [
+            {
+              "produtoId": 1,
+              "quantidade": 1,
+              "precoUnitarioCentavos": 1200
+            }
+          ],
+          "criadoEm": "2026-11-09T14:21:14.258557+00:00"
+        }
+      }
+    },
+    {
+      "cenario": "T22 - Simular indisponibilidade",
+      "metodo": "POST",
+      "rota": "/pedidos/1/pagamentos",
+      "status": 503,
+      "assercoes": 2,
+      "falhas": [],
+      "resposta": {
+        "error": "PAGAMENTO_INDISPONIVEL",
+        "message": "Tempo de resposta excedido. Consulte o pedido e tente com nova chave.",
+        "details": [],
+        "timestamp": "2026-11-09T14:21:14.780501+00:00",
+        "path": "/pedidos/1/pagamentos"
+      }
+    },
+    {
+      "cenario": "T23 - Aprovar pagamento",
+      "metodo": "POST",
+      "rota": "/pedidos/1/pagamentos",
+      "status": 200,
+      "assercoes": 2,
+      "falhas": [],
+      "resposta": {
+        "pagamentoId": 3,
+        "statusPagamento": "APROVADO",
+        "referencia": "mock-2c31348bc0f02874",
+        "valorCentavos": 1200,
+        "pedido": {
+          "pedidoId": 1,
+          "clienteId": 1,
+          "unidadeId": 1,
+          "canalPedido": "APP",
+          "status": "RECEBIDO",
+          "subtotalCentavos": 1200,
+          "descontoCentavos": 0,
+          "totalCentavos": 1200,
+          "pontosResgate": 0,
+          "itens": [
+            {
+              "produtoId": 1,
+              "quantidade": 1,
+              "precoUnitarioCentavos": 1200
+            }
+          ],
+          "criadoEm": "2026-11-09T14:21:14.258557+00:00"
+        }
+      }
+    },
+    {
+      "cenario": "T24 - Repetir pagamento aprovado",
+      "metodo": "POST",
+      "rota": "/pedidos/1/pagamentos",
+      "status": 200,
+      "assercoes": 1,
+      "falhas": [],
+      "resposta": {
+        "pagamentoId": 3,
+        "statusPagamento": "APROVADO",
+        "referencia": "mock-2c31348bc0f02874",
+        "valorCentavos": 1200,
+        "pedido": {
+          "pedidoId": 1,
+          "clienteId": 1,
+          "unidadeId": 1,
+          "canalPedido": "APP",
+          "status": "RECEBIDO",
+          "subtotalCentavos": 1200,
+          "descontoCentavos": 0,
+          "totalCentavos": 1200,
+          "pontosResgate": 0,
+          "itens": [
+            {
+              "produtoId": 1,
+              "quantidade": 1,
+              "precoUnitarioCentavos": 1200
+            }
+          ],
+          "criadoEm": "2026-11-09T14:21:14.258557+00:00"
+        }
+      }
+    },
+    {
+      "cenario": "T25 - Iniciar preparo",
+      "metodo": "PATCH",
+      "rota": "/pedidos/1/status",
+      "status": 200,
+      "assercoes": 1,
+      "falhas": [],
+      "resposta": {
+        "pedidoId": 1,
+        "clienteId": 1,
+        "unidadeId": 1,
+        "canalPedido": "APP",
+        "status": "EM_PREPARO",
+        "subtotalCentavos": 1200,
+        "descontoCentavos": 0,
+        "totalCentavos": 1200,
+        "pontosResgate": 0,
+        "itens": [
+          {
+            "produtoId": 1,
+            "quantidade": 1,
+            "precoUnitarioCentavos": 1200
+          }
+        ],
+        "criadoEm": "2026-11-09T14:21:14.258557+00:00"
+      }
+    },
+    {
+      "cenario": "T26 - Marcar pronto",
+      "metodo": "PATCH",
+      "rota": "/pedidos/1/status",
+      "status": 200,
+      "assercoes": 1,
+      "falhas": [],
+      "resposta": {
+        "pedidoId": 1,
+        "clienteId": 1,
+        "unidadeId": 1,
+        "canalPedido": "APP",
+        "status": "PRONTO",
+        "subtotalCentavos": 1200,
+        "descontoCentavos": 0,
+        "totalCentavos": 1200,
+        "pontosResgate": 0,
+        "itens": [
+          {
+            "produtoId": 1,
+            "quantidade": 1,
+            "precoUnitarioCentavos": 1200
+          }
+        ],
+        "criadoEm": "2026-11-09T14:21:14.258557+00:00"
+      }
+    },
+    {
+      "cenario": "T27 - Confirmar entrega",
+      "metodo": "PATCH",
+      "rota": "/pedidos/1/status",
+      "status": 200,
+      "assercoes": 1,
+      "falhas": [],
+      "resposta": {
+        "pedidoId": 1,
+        "clienteId": 1,
+        "unidadeId": 1,
+        "canalPedido": "APP",
+        "status": "ENTREGUE",
+        "subtotalCentavos": 1200,
+        "descontoCentavos": 0,
+        "totalCentavos": 1200,
+        "pontosResgate": 0,
+        "itens": [
+          {
+            "produtoId": 1,
+            "quantidade": 1,
+            "precoUnitarioCentavos": 1200
+          }
+        ],
+        "criadoEm": "2026-11-09T14:21:14.258557+00:00"
+      }
+    },
+    {
+      "cenario": "T28 - Consultar pontos",
+      "metodo": "GET",
+      "rota": "/fidelidade",
+      "status": 200,
+      "assercoes": 2,
+      "falhas": [],
+      "resposta": {
+        "saldo": 12,
+        "consentimento": true,
+        "historico": {
+          "items": [
+            {
+              "pedidoId": 1,
+              "tipo": "CREDITO",
+              "quantidade": 12,
+              "criadoEm": "2026-11-09T14:21:15.246430+00:00"
+            }
+          ],
+          "page": 1,
+          "limit": 10,
+          "total": 1
+        }
+      }
+    },
+    {
+      "cenario": "T29 - Auditar operação sensível",
+      "metodo": "GET",
+      "rota": "/auditoria",
+      "status": 200,
+      "assercoes": 2,
+      "falhas": [],
+      "resposta": {
+        "items": [
+          {
+            "id": 22,
+            "usuario_id": 2,
+            "acao": "CONSULTAR_AUDITORIA",
+            "recurso": "auditoria",
+            "criado_em": "2026-11-09T14:21:15.433424+00:00"
+          },
+          {
+            "id": 21,
+            "usuario_id": 1,
+            "acao": "CONSULTAR_FIDELIDADE",
+            "recurso": "1",
+            "criado_em": "2026-11-09T14:21:15.339024+00:00"
+          },
+          {
+            "id": 20,
+            "usuario_id": 4,
+            "acao": "STATUS_ENTREGUE",
+            "recurso": "1",
+            "criado_em": "2026-11-09T14:21:15.246482+00:00"
+          },
+          {
+            "id": 19,
+            "usuario_id": 3,
+            "acao": "STATUS_PRONTO",
+            "recurso": "1",
+            "criado_em": "2026-11-09T14:21:15.152478+00:00"
+          },
+          {
+            "id": 18,
+            "usuario_id": 3,
+            "acao": "STATUS_EM_PREPARO",
+            "recurso": "1",
+            "criado_em": "2026-11-09T14:21:15.057403+00:00"
+          },
+          {
+            "id": 17,
+            "usuario_id": 1,
+            "acao": "PAGAMENTO_APROVADO",
+            "recurso": "1",
+            "criado_em": "2026-11-09T14:21:14.870348+00:00"
+          },
+          {
+            "id": 16,
+            "usuario_id": 1,
+            "acao": "PAGAMENTO_TIMEOUT",
+            "recurso": "1",
+            "criado_em": "2026-11-09T14:21:14.777156+00:00"
+          },
+          {
+            "id": 15,
+            "usuario_id": 1,
+            "acao": "PAGAMENTO_RECUSADO",
+            "recurso": "1",
+            "criado_em": "2026-11-09T14:21:14.635847+00:00"
+          },
+          {
+            "id": 14,
+            "usuario_id": 1,
+            "acao": "CRIAR_PEDIDO",
+            "recurso": "1",
+            "criado_em": "2026-11-09T14:21:14.258883+00:00"
+          },
+          {
+            "id": 13,
+            "usuario_id": 1,
+            "acao": "MOVIMENTAR_ESTOQUE",
+            "recurso": "1/1",
+            "criado_em": "2026-11-09T14:21:14.258861+00:00"
+          },
+          {
+            "id": 12,
+            "usuario_id": 1,
+            "acao": "CONSENTIMENTO_FIDELIDADE",
+            "recurso": "1",
+            "criado_em": "2026-11-09T14:21:14.179216+00:00"
+          },
+          {
+            "id": 11,
+            "usuario_id": 4,
+            "acao": "MOVIMENTAR_ESTOQUE",
+            "recurso": "1/3",
+            "criado_em": "2026-11-09T14:21:13.991704+00:00"
+          },
+          {
+            "id": 10,
+            "usuario_id": 2,
+            "acao": "ALTERAR_CARDAPIO",
+            "recurso": "1/3",
+            "criado_em": "2026-11-09T14:21:13.899507+00:00"
+          },
+          {
+            "id": 9,
+            "usuario_id": 2,
+            "acao": "EDITAR_PRODUTO",
+            "recurso": "3",
+            "criado_em": "2026-11-09T14:21:13.805686+00:00"
+          },
+          {
+            "id": 8,
+            "usuario_id": 2,
+            "acao": "CRIAR_PRODUTO",
+            "recurso": "3",
+            "criado_em": "2026-11-09T14:21:13.710445+00:00"
+          },
+          {
+            "id": 7,
+            "usuario_id": 2,
+            "acao": "EDITAR_UNIDADE",
+            "recurso": "3",
+            "criado_em": "2026-11-09T14:21:13.617467+00:00"
+          },
+          {
+            "id": 6,
+            "usuario_id": 2,
+            "acao": "CRIAR_UNIDADE",
+            "recurso": "3",
+            "criado_em": "2026-11-09T14:21:13.507555+00:00"
+          },
+          {
+            "id": 5,
+            "usuario_id": 6,
+            "acao": "CADASTRAR_USUARIO",
+            "recurso": "6",
+            "criado_em": "2026-11-09T14:21:13.138896+00:00"
+          },
+          {
+            "id": 4,
+            "usuario_id": 4,
+            "acao": "LOGIN",
+            "recurso": "4",
+            "criado_em": "2026-11-09T14:21:12.981232+00:00"
+          },
+          {
+            "id": 3,
+            "usuario_id": 3,
+            "acao": "LOGIN",
+            "recurso": "3",
+            "criado_em": "2026-11-09T14:21:12.807801+00:00"
+          },
+          {
+            "id": 2,
+            "usuario_id": 2,
+            "acao": "LOGIN",
+            "recurso": "2",
+            "criado_em": "2026-11-09T14:21:12.637414+00:00"
+          },
+          {
+            "id": 1,
+            "usuario_id": 1,
+            "acao": "LOGIN",
+            "recurso": "1",
+            "criado_em": "2026-11-09T14:21:12.461215+00:00"
+          }
+        ],
+        "page": 1,
+        "limit": 100,
+        "total": 22
+      }
+    },
+    {
+      "cenario": "T30 - Vendas consolidadas",
+      "metodo": "GET",
+      "rota": "/relatorios/vendas",
+      "status": 200,
+      "assercoes": 1,
+      "falhas": [],
+      "resposta": {
+        "items": [
+          {
+            "unidadeId": 1,
+            "regiao": "Nordeste",
+            "canalPedido": "APP",
+            "pedidos": 1,
+            "receitaCentavos": 1200
+          }
+        ]
+      }
+    },
+    {
+      "cenario": "T31 - Acesso sem token",
+      "metodo": "GET",
+      "rota": "/pedidos",
+      "status": 401,
+      "assercoes": 1,
+      "falhas": [],
+      "resposta": {
+        "error": "NAO_AUTENTICADO",
+        "message": "Informe um token Bearer.",
+        "details": [],
+        "timestamp": "2026-11-09T14:21:15.600250+00:00",
+        "path": "/pedidos"
+      }
+    },
+    {
+      "cenario": "T32 - Perfil sem permissão",
+      "metodo": "POST",
+      "rota": "/produtos",
+      "status": 403,
+      "assercoes": 1,
+      "falhas": [],
+      "resposta": {
+        "error": "SEM_PERMISSAO",
+        "message": "Perfil sem permissão para esta operação.",
+        "details": [],
+        "timestamp": "2026-11-09T14:21:15.698218+00:00",
+        "path": "/produtos"
+      }
+    },
+    {
+      "cenario": "T33 - Canal obrigatório ausente",
+      "metodo": "POST",
+      "rota": "/pedidos",
+      "status": 422,
+      "assercoes": 1,
+      "falhas": [],
+      "resposta": {
+        "error": "VALIDACAO",
+        "message": "Verifique os campos enviados.",
+        "details": [
+          {
+            "field": "body.canalPedido",
+            "issue": "Field required"
+          }
+        ],
+        "timestamp": "2026-11-09T14:21:15.791278+00:00",
+        "path": "/pedidos"
+      }
+    },
+    {
+      "cenario": "T34 - Canal inválido",
+      "metodo": "POST",
+      "rota": "/pedidos",
+      "status": 422,
+      "assercoes": 1,
+      "falhas": [],
+      "resposta": {
+        "error": "VALIDACAO",
+        "message": "Verifique os campos enviados.",
+        "details": [
+          {
+            "field": "body.canalPedido",
+            "issue": "Input should be 'APP', 'TOTEM', 'BALCAO', 'PICKUP' or 'WEB'"
+          }
+        ],
+        "timestamp": "2026-11-09T14:21:15.886354+00:00",
+        "path": "/pedidos"
+      }
+    },
+    {
+      "cenario": "T35 - Quantidade negativa",
+      "metodo": "POST",
+      "rota": "/pedidos",
+      "status": 422,
+      "assercoes": 1,
+      "falhas": [],
+      "resposta": {
+        "error": "VALIDACAO",
+        "message": "Verifique os campos enviados.",
+        "details": [
+          {
+            "field": "body.itens.0.quantidade",
+            "issue": "Input should be greater than 0"
+          }
+        ],
+        "timestamp": "2026-11-09T14:21:15.965124+00:00",
+        "path": "/pedidos"
+      }
+    },
+    {
+      "cenario": "T36 - Produto inexistente",
+      "metodo": "POST",
+      "rota": "/pedidos",
+      "status": 404,
+      "assercoes": 1,
+      "falhas": [],
+      "resposta": {
+        "error": "NAO_ENCONTRADO",
+        "message": "Recurso não encontrado.",
+        "details": [],
+        "timestamp": "2026-11-09T14:21:16.061569+00:00",
+        "path": "/pedidos"
+      }
+    },
+    {
+      "cenario": "T37 - Unidade inexistente",
+      "metodo": "POST",
+      "rota": "/pedidos",
+      "status": 404,
+      "assercoes": 1,
+      "falhas": [],
+      "resposta": {
+        "error": "NAO_ENCONTRADO",
+        "message": "Recurso não encontrado.",
+        "details": [],
+        "timestamp": "2026-11-09T14:21:16.155066+00:00",
+        "path": "/pedidos"
+      }
+    },
+    {
+      "cenario": "T38 - Estoque insuficiente",
+      "metodo": "POST",
+      "rota": "/pedidos",
+      "status": 409,
+      "assercoes": 1,
+      "falhas": [],
+      "resposta": {
+        "error": "ESTOQUE_INSUFICIENTE",
+        "message": "Quantidade acima do estoque disponível.",
+        "details": [],
+        "timestamp": "2026-11-09T14:21:16.233964+00:00",
+        "path": "/pedidos"
+      }
+    },
+    {
+      "cenario": "T39 - Transição inválida",
+      "metodo": "PATCH",
+      "rota": "/pedidos/1/status",
+      "status": 409,
+      "assercoes": 1,
+      "falhas": [],
+      "resposta": {
+        "error": "STATUS_INVALIDO",
+        "message": "Transição de status não permitida.",
+        "details": [],
+        "timestamp": "2026-11-09T14:21:16.326606+00:00",
+        "path": "/pedidos/1/status"
+      }
+    },
+    {
+      "cenario": "T40 - Isolamento de unidade",
+      "metodo": "GET",
+      "rota": "/unidades/2/estoque",
+      "status": 403,
+      "assercoes": 1,
+      "falhas": [],
+      "resposta": {
+        "error": "SEM_PERMISSAO",
+        "message": "Usuário sem acesso a esta unidade.",
+        "details": [],
+        "timestamp": "2026-11-09T14:21:16.403365+00:00",
+        "path": "/unidades/2/estoque"
+      }
+    },
+    {
+      "cenario": "T41 - Criar pedido TOTEM",
+      "metodo": "POST",
+      "rota": "/pedidos",
+      "status": 201,
+      "assercoes": 1,
+      "falhas": [],
+      "resposta": {
+        "pedidoId": 2,
+        "clienteId": 1,
+        "unidadeId": 1,
+        "canalPedido": "TOTEM",
+        "status": "AGUARDANDO_PAGAMENTO",
+        "subtotalCentavos": 1200,
+        "descontoCentavos": 0,
+        "totalCentavos": 1200,
+        "pontosResgate": 0,
+        "itens": [
+          {
+            "produtoId": 1,
+            "quantidade": 1,
+            "precoUnitarioCentavos": 1200
+          }
+        ],
+        "criadoEm": "2026-11-09T14:21:16.500546+00:00"
+      }
+    },
+    {
+      "cenario": "T42 - Cancelar pendente",
+      "metodo": "PATCH",
+      "rota": "/pedidos/2/status",
+      "status": 200,
+      "assercoes": 1,
+      "falhas": [],
+      "resposta": {
+        "pedidoId": 2,
+        "clienteId": 1,
+        "unidadeId": 1,
+        "canalPedido": "TOTEM",
+        "status": "CANCELADO",
+        "subtotalCentavos": 1200,
+        "descontoCentavos": 0,
+        "totalCentavos": 1200,
+        "pontosResgate": 0,
+        "itens": [
+          {
+            "produtoId": 1,
+            "quantidade": 1,
+            "precoUnitarioCentavos": 1200
+          }
+        ],
+        "criadoEm": "2026-11-09T14:21:16.500546+00:00"
+      }
+    },
+    {
+      "cenario": "T43 - Revogar consentimento",
+      "metodo": "PUT",
+      "rota": "/fidelidade/consentimento",
+      "status": 200,
+      "assercoes": 1,
+      "falhas": [],
+      "resposta": {
+        "finalidade": "FIDELIDADE",
+        "aceito": false,
+        "versao": "1.0"
+      }
+    },
+    {
+      "cenario": "T44 - Verificar API e banco",
+      "metodo": "GET",
+      "rota": "/health",
+      "status": 200,
+      "assercoes": 1,
+      "falhas": [],
+      "resposta": {
+        "status": "ok"
+      }
+    }
+  ]
+}

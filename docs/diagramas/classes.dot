@@ -1,0 +1,23 @@
+digraph Classes {
+ graph [rankdir=LR,bgcolor=white,pad="0.5",nodesep="0.5",ranksep="0.8",fontname="Arial",label="Classes e contratos presentes no código",labelloc=t,fontsize=24];
+ node [shape=record,fontname="Arial",fontsize=13,style=filled,fillcolor="#f3f6f8",color="#345369"];
+ contrato [label="{Contrato (BaseModel)|extra = forbid\lstr_strip_whitespace = True\l}"];
+ pedido [label="{PedidoEntrada|unidadeId: int\lcanalPedido: Canal\litens: list[ItemEntrada]\lpontosResgate: int\l}"];
+ item [label="{ItemEntrada|produtoId: int\lquantidade: int\l}"];
+ canal [label="{Canal (enum)|APP / TOTEM / BALCAO\lPICKUP / WEB\l}"];
+ status [label="{StatusPedido (enum)|AGUARDANDO_PAGAMENTO\lRECEBIDO / EM_PREPARO\lPRONTO / ENTREGUE / CANCELADO\l}"];
+ entrada_status [label="{StatusEntrada|status: StatusPedido\l}"];
+ entrada_pagamento [label="{PagamentoEntrada|resultado: str\l}"];
+ gateway [label="{GatewayMock|+ solicitar(pedido_id, valor_centavos, resultado)\l}"];
+ erro [label="{RegraNegocio (Exception)|status: int\lcodigo: str\lmensagem: str\l}"];
+ servicos [label="{application (módulo)|+ criar_pedido()\l+ pagar()\l+ atualizar_status()\l+ mover_estoque()\l}"];
+ pedido -> contrato [arrowhead=empty,label="herda"];
+ item -> contrato [arrowhead=empty]; entrada_status -> contrato [arrowhead=empty]; entrada_pagamento -> contrato [arrowhead=empty];
+ pedido -> item [dir=both,arrowtail=diamond,arrowhead=none,label="1 contém 1..N"];
+ pedido -> canal [label="usa"];
+ entrada_status -> status [label="usa"];
+ servicos -> pedido [style=dashed,label="recebe"];
+ servicos -> entrada_pagamento [style=dashed,label="recebe"];
+ servicos -> gateway [style=dashed,label="chama"];
+ servicos -> erro [style=dashed,label="pode lançar"];
+}
